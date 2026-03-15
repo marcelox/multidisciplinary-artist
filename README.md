@@ -1,42 +1,64 @@
-# sv
+# Photography Portfolio
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+![SvelteKit](https://img.shields.io/badge/SvelteKit-2-FF3E00?logo=svelte&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Directus](https://img.shields.io/badge/Directus-CMS-6644FF?logo=directus&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
 
-## Creating a project
+A multilingual photography portfolio website built with SvelteKit and powered by Directus as a headless CMS.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Stack
 
-```sh
-# create a new project
-npx sv create my-app
+- **SvelteKit 2** — SSR-first
+- **TypeScript**
+- **Directus** — headless CMS
+- **Paraglide** — i18n (English, German, Spanish)
+
+## Features
+
+- Multilingual content (EN/DE/ES) managed through Directus translations
+- WCAG AA
+
+## Setup
+
+```bash
+cp .env.example .env
 ```
 
-To recreate this project with the same configuration:
+Set `DIRECTUS_URL` to your Directus instance.
 
-```sh
-# recreate this project
-pnpm dlx sv@0.12.4 create --template minimal --types ts --add prettier eslint vitest="usages:component" playwright paraglide="languageTags:en, de, es+demo:no" mcp="ide:claude-code+setup:remote" --install pnpm diana-juneck-website
-```
+## Development
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+## Scripts
 
-To create a production version of your app:
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run check` | Type checking |
+| `npm run lint` | Lint and format check |
+| `npm run test:unit` | Unit tests (Vitest) |
+| `npm run test:e2e` | E2E tests (Playwright) |
 
-```sh
-npm run build
+## Project Structure
+
+```
+src/
+├── lib/
+│   ├── server/directus.ts   # Directus SDK setup and helpers
+│   └── paraglide/           # i18n runtime
+├── routes/
+│   └── [lang]/
+│       ├── +page.svelte     # Project grid (homepage)
+│       ├── projects/[slug]  # Single project view
+│       ├── about            # Artist bio + exhibitions
+│       └── contact          # Contact page
+└── app.html
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
