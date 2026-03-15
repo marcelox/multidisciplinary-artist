@@ -1,21 +1,20 @@
-import { createDirectus, rest, readItems, readItem, readSingleton } from '@directus/sdk';
+import { createDirectus, rest, readItems, readSingleton } from '@directus/sdk';
 import { DIRECTUS_URL } from '$env/static/private';
 import type { Schema } from '$lib/types/directus';
 
 export const directus = createDirectus<Schema>(DIRECTUS_URL).with(rest());
 
-export { readItems, readItem, readSingleton };
+export { readItems, readSingleton };
 
 /**
  * Helper to get translated fields for a given language
  */
-export function get_translated<T extends { translations?: Array<{ languages_code: string }> }>(
-	item: T,
-	lang: string
-): T & { t: T['translations'] extends Array<infer U> ? U : never } {
-	const translation =
-		item.translations?.find((t) => t.languages_code === lang) ?? item.translations?.[0];
-	return { ...item, t: translation as never };
+export function get_translated<
+	T extends { translations?: Array<{ languages_code: string }> | null }
+>(item: T, lang: string): T & { t: NonNullable<T['translations']>[number] } {
+	const translations = item.translations ?? [];
+	const translation = translations.find((t) => t.languages_code === lang) ?? translations[0];
+	return { ...item, t: translation } as T & { t: NonNullable<T['translations']>[number] };
 }
 
 /**

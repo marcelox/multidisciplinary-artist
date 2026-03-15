@@ -1,7 +1,11 @@
 import { directus, readItems, get_translated, get_asset_url } from '$lib/server/directus';
+import { getLocale } from '$lib/paraglide/runtime';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ depends }) => {
+	depends('paraglide:locale');
+	const lang = getLocale();
+
 	const items = await directus.request(
 		readItems('projects', {
 			fields: ['id', 'slug', 'cover_image', { translations: ['*'] }],
@@ -11,7 +15,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	);
 
 	const projects = items.map((item) => {
-		const translated = get_translated(item, params.lang);
+		const translated = get_translated(item, lang);
 		return {
 			...translated,
 			cover_url: get_asset_url(translated.cover_image, {

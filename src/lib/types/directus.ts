@@ -125,13 +125,22 @@ export type NavigationTranslation = {
 
 /**
  * Directus SDK Schema
+ *
+ * Translation junction tables must be listed here
+ * so the SDK recognizes `translations` as relational fields.
  */
 export type Schema = {
 	languages: Language[];
 	site_settings: SiteSettings;
+	site_settings_translations: SiteSettingsTranslation[];
 	artist: Artist;
+	artist_translations: ArtistTranslation[];
 	projects: Project[];
+	projects_translations: ProjectTranslation[];
 	project_images: ProjectImage[];
+	project_images_translations: ProjectImageTranslation[];
 	exhibitions: Exhibition[];
+	exhibitions_translations: ExhibitionTranslation[];
 	navigation: Navigation[];
+	navigation_translations: NavigationTranslation[];
 };

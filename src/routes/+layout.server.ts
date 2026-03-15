@@ -2,7 +2,8 @@ import { directus, readItems, readSingleton, get_translated } from '$lib/server/
 import { getLocale } from '$lib/paraglide/runtime';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async () => {
+export const load: LayoutServerLoad = async ({ depends }) => {
+	depends('paraglide:locale');
 	const lang = getLocale();
 
 	const [navigation_items, site_settings] = await Promise.all([
