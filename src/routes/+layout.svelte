@@ -17,9 +17,9 @@
 <header>
 	<nav aria-label="Main navigation">
 		<a href={localizeHref('/')}>{data.settings.t?.title ?? 'Home'}</a>
-		<ul>
+		<ul class="menu-list">
 			{#each data.navigation as item (item.id)}
-				<li>
+				<li class="menu-list-item">
 					{#if item.external}
 						<a href={item.path} rel="noopener noreferrer" target="_blank">{item.t.label}</a>
 					{:else}
@@ -43,3 +43,24 @@
 <main>
 	{@render children()}
 </main>
+
+<style>
+ul {
+		margin-block: 0;
+    margin-inline-start: 0;
+		margin-inline-end: 0;
+    padding-inline: 1rem;
+}
+
+li {
+		list-style: none;
+}
+
+.menu-list {
+    display: grid;
+		margin-block: 0;
+		margin-inline-end: 0;
+    margin-inline-start: auto;
+}
+
+</style>

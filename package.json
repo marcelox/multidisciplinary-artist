@@ -61,6 +61,7 @@
 		]
 	},
 	"dependencies": {
-		"@directus/sdk": "^21.1.0"
+		"@directus/sdk": "^21.1.0",
+		"marked": "^17.0.4"
 	}
 }
