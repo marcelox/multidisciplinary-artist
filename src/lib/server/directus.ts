@@ -23,7 +23,13 @@ export function get_translated<T extends { translations?: Array<{ languages_code
  */
 export function get_asset_url(
 	file_id: string | null,
-	transforms?: { width?: number; height?: number; fit?: 'cover' | 'contain' | 'inside' | 'outside' }
+	transforms?: {
+		width?: number;
+		height?: number;
+		fit?: 'cover' | 'contain' | 'inside' | 'outside';
+		format?: 'webp' | 'jpg' | 'png' | 'avif';
+		quality?: number;
+	}
 ): string | null {
 	if (!file_id) return null;
 
@@ -31,6 +37,8 @@ export function get_asset_url(
 	if (transforms?.width) params.set('width', transforms.width.toString());
 	if (transforms?.height) params.set('height', transforms.height.toString());
 	if (transforms?.fit) params.set('fit', transforms.fit);
+	if (transforms?.format) params.set('format', transforms.format);
+	if (transforms?.quality) params.set('quality', transforms.quality.toString());
 
 	const query = params.toString();
 	return `${DIRECTUS_URL}/assets/${file_id}${query ? `?${query}` : ''}`;
