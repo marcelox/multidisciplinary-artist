@@ -59,9 +59,19 @@
 
 <style>
 	.about {
-		max-width: 800px;
+		max-width: 56.25rem;
 		margin: 0 auto;
 		padding: 2rem 1rem;
+	}
+
+	@media (min-width: 62.5rem) {
+      .about {
+					display: grid;
+					grid-template-columns: 1fr 1fr 1fr;
+          max-width: 156.25rem;
+					grid-column-gap: 3rem;
+          justify-items: center;
+      }
 	}
 
 	.artist-header {
@@ -102,13 +112,19 @@
 		max-width: 65ch;
 	}
 
-	.bio p {
-		margin: 0;
-	}
+  .bio :global(p:first-child) {
+      margin-block-start: 0;
+  }
 
 	.exhibitions {
-		margin-top: 3rem;
+		margin-block-start: 3rem;
 	}
+
+  @media (min-width: 62.5rem) {
+      .exhibitions {
+          margin-block-start: 0;
+      }
+  }
 
 	.exhibitions h2 {
 		font-size: 1.125rem;
