@@ -45,7 +45,7 @@
 						<span class="year">{exhibition.year}</span>
 						<span class="details">
 							{#if exhibition.t?.title}
-								<em>{exhibition.t.title}</em>,
+								<span class="exhibition-title">{exhibition.t.title}</span>,
 							{/if}
 							{exhibition.venue}, {exhibition.city}{#if exhibition.country}, {exhibition.country}{/if}
 							<span class="type">({exhibition.type})</span>
@@ -118,6 +118,10 @@
 
 	.exhibitions {
 		margin-block-start: 3rem;
+	}
+
+	.exhibition-title {
+			font-weight: 500;
 	}
 
   @media (min-width: 62.5rem) {

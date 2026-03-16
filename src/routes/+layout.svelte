@@ -3,6 +3,7 @@
 	import { locales, localizeHref, deLocalizeHref } from '$lib/paraglide/runtime';
 	import favicon from '$lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
+	import '../styles/fonts.css';
 
 	let { data, children }: LayoutProps = $props();
 </script>
@@ -45,6 +46,10 @@
 </main>
 
 <style>
+:global(body) {
+	font-family: 'Outfit Variable', system-ui, sans-serif;
+}
+
 ul {
 		margin-block: 0;
     margin-inline-start: 0;
