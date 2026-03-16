@@ -1,0 +1,71 @@
+/* ============================================
+   Scroll-driven reveal animation
+   ============================================ */
+@keyframes scroll-reveal {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.scroll-reveal {
+	animation: scroll-reveal linear both;
+	animation-timeline: view();
+	animation-range: entry 0% entry 100%;
+}
+
+/* Stagger support via custom property */
+.scroll-reveal[style*='--reveal-delay'] {
+	animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Fallback: if scroll-driven animations are unsupported, just show elements */
+@supports not (animation-timeline: view()) {
+	.scroll-reveal {
+		animation: none;
+	}
+}
+
+/* ============================================
+   View Transition customization
+   ============================================ */
+::view-transition-old(root) {
+	animation-duration: 200ms;
+	animation-timing-function: ease-out;
+}
+
+::view-transition-new(root) {
+	animation-duration: 200ms;
+	animation-timing-function: ease-in;
+}
+
+::view-transition-old(project-hero),
+::view-transition-new(project-hero) {
+	animation-duration: 300ms;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   Accessibility: reduced motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-delay: 0ms !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root),
+	::view-transition-old(project-hero),
+	::view-transition-new(project-hero) {
+		animation: none !important;
+	}
+}

@@ -1,18 +1,26 @@
 <script lang="ts">
+	import { fade, fly } from 'svelte/transition';
+	import { prefersReducedMotion } from 'svelte/motion';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	function fly_params(delay: number) {
+		return prefersReducedMotion.current
+			? { duration: 0 }
+			: { y: 20, duration: 400, delay };
+	}
 </script>
 
 <svelte:head>
 	<title>{data.artist.name}</title>
 </svelte:head>
 
-<article class="about">
+<article class="about" in:fade={{ duration: prefersReducedMotion.current ? 0 : 300 }}>
 	<header class="artist-header">
 		{#if data.portrait_url}
 			<img
-				class="portrait"
+				class="portrait scroll-reveal"
 				src={data.portrait_url}
 				alt={data.artist.name}
 				width="800"
@@ -30,18 +38,18 @@
 	</header>
 
 	{#if data.artist.t?.bio}
-		<section class="bio">
+		<section class="bio scroll-reveal">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html data.artist.t.bio}
 		</section>
 	{/if}
 
 	{#if data.exhibitions.length}
-		<section class="exhibitions">
+		<section class="exhibitions scroll-reveal">
 			<h2>Exhibitions</h2>
 			<ul>
-				{#each data.exhibitions as exhibition (exhibition.id)}
-					<li>
+				{#each data.exhibitions as exhibition, i (exhibition.id)}
+					<li in:fly={fly_params(i * 30)}>
 						<span class="year">{exhibition.year}</span>
 						<span class="details">
 							{#if exhibition.t?.title}

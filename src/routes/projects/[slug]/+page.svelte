@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fade, fly } from 'svelte/transition';
+	import { prefersReducedMotion } from 'svelte/motion';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -8,7 +10,7 @@
 	<title>{data.project.t.title}</title>
 </svelte:head>
 
-<article class="project">
+<article class="project" in:fade={{ duration: prefersReducedMotion.current ? 0 : 300 }}>
 	<header class="project-header">
 		<h1>{data.project.t.title}</h1>
 		{#if data.project.t.tagline}
@@ -24,8 +26,11 @@
 	</header>
 
 	<section class="project-images">
-		{#each data.images as image (image.id)}
-			<figure>
+		{#each data.images as image, i (image.id)}
+			<figure
+				class="scroll-reveal"
+				style="--reveal-delay: {i * 60}ms; {i === 0 ? `view-transition-name: project-${data.project.slug}` : ''}"
+			>
 				{#if image.url}
 					<img
 						src={image.url}
@@ -42,7 +47,7 @@
 	</section>
 
 	{#if data.project.t.statement}
-		<section class="statement">
+		<section class="statement scroll-reveal">
 			<h2>Statement</h2>
 			<div>{@html data.project.t.statement}</div>
 		</section>
@@ -68,7 +73,7 @@
 
 	.tagline {
 		margin: 0.5rem 0 0;
-		font-style: italic;
+		font-weight: 550;
 		color: #555;
 	}
 
