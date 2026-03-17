@@ -105,13 +105,13 @@
 	.roles {
 		margin: 0.25rem 0 0;
 		font-size: 0.9375rem;
-		color: #555;
+		color: var(--color-text-secondary);
 	}
 
 	.based-in {
 		margin: 0.25rem 0 0;
 		font-size: 0.875rem;
-		color: #777;
+		color: var(--color-text-tertiary);
 	}
 
 	.bio {
@@ -154,19 +154,19 @@
 		display: flex;
 		gap: 1rem;
 		padding: 0.5rem 0;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid var(--color-border);
 		font-size: 0.875rem;
 		line-height: 1.5;
 	}
 
 	.year {
 		flex-shrink: 0;
-		color: #555;
+		color: var(--color-text-secondary);
 		font-variant-numeric: tabular-nums;
 	}
 
 	.type {
-		color: #999;
+		color: var(--color-text-muted);
 		font-size: 0.8125rem;
 	}
 </style>

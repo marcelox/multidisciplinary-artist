@@ -1,0 +1,39 @@
+/* ============================================
+   Theme: light-dark color scheme
+   ============================================ */
+:root {
+	color-scheme: light dark;
+
+	--color-text: light-dark(#111, #e8e8e8);
+	--color-text-secondary: light-dark(#555, #aaa);
+	--color-text-tertiary: light-dark(#777, #888);
+	--color-text-muted: light-dark(#999, #777);
+	--color-text-caption: light-dark(#666, #999);
+
+	--color-bg: light-dark(#fff, #111);
+	--color-bg-elevated: light-dark(#fff, #1a1a1a);
+
+	--color-border: light-dark(#eee, #2a2a2a);
+	--color-shadow: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.06));
+}
+
+/* Override color-scheme when user explicitly picks a theme */
+:root[data-theme="light"] {
+	color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+}
+
+body {
+	color: var(--color-text);
+	background-color: var(--color-bg);
+	transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body {
+		transition: none;
+	}
+}

@@ -50,7 +50,7 @@
 
 	.project-card:hover {
 		transform: scale(1.02);
-		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+		box-shadow: 0 8px 30px var(--color-shadow);
 	}
 
 	.card-image-wrapper {

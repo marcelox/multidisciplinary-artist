@@ -74,13 +74,13 @@
 	.tagline {
 		margin: 0.5rem 0 0;
 		font-weight: 550;
-		color: #555;
+		color: var(--color-text-secondary);
 	}
 
 	.meta {
 		margin: 0.25rem 0 0;
 		font-size: 0.875rem;
-		color: #777;
+		color: var(--color-text-tertiary);
 	}
 
 	.project-images {
@@ -102,7 +102,7 @@
 	figcaption {
 		margin-top: 0.5rem;
 		font-size: 0.8125rem;
-		color: #666;
+		color: var(--color-text-caption);
 	}
 
 	.statement {
