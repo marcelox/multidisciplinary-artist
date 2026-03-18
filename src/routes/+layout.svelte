@@ -12,13 +12,10 @@
 	let { data, children }: LayoutProps = $props();
 
 	let theme = $state<'light' | 'dark' | null>(null);
-
-	function get_system_theme(): 'light' | 'dark' {
-		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-	}
+	let system_theme = $state<'light' | 'dark'>('light');
 
 	function get_effective_theme(): 'light' | 'dark' {
-		return theme ?? get_system_theme();
+		return theme ?? system_theme;
 	}
 
 	function toggle_theme() {
@@ -29,9 +26,17 @@
 	}
 
 	if (browser) {
+		const mql = window.matchMedia('(prefers-color-scheme: dark)');
+		system_theme = mql.matches ? 'dark' : 'light';
+
+		mql.addEventListener('change', (e) => {
+			system_theme = e.matches ? 'dark' : 'light';
+		});
+
 		const stored = localStorage.getItem('theme');
 		if (stored === 'light' || stored === 'dark') {
 			theme = stored;
+			document.documentElement.setAttribute('data-theme', stored);
 		}
 	}
 
