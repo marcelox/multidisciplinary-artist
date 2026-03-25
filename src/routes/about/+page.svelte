@@ -5,6 +5,7 @@
 
 	let { data }: PageProps = $props();
 
+	/* Keep in sync with --fly-duration, --fly-distance, --stagger-list in animations.css */
 	function fly_params(delay: number) {
 		return prefersReducedMotion.current
 			? { duration: 0 }
@@ -16,6 +17,7 @@
 	<title>{data.artist.name}</title>
 </svelte:head>
 
+<!-- Keep in sync with --page-fade-duration-short in animations.css -->
 <article class="about" in:fade={{ duration: prefersReducedMotion.current ? 0 : 300 }}>
 	<header class="artist-header">
 		{#if data.portrait_url}
@@ -115,10 +117,20 @@
 	}
 
 	.bio {
-		line-height: 1.7;
-		font-size: 0.9375rem;
+      line-height: 1.25;
+      font-size: 1rem;
+
+		/*line-height: 1.7;*/
+		/*font-size: 0.9375rem;*/
 		max-width: 65ch;
 	}
+
+  @media (min-width: 62.5rem) {
+      .bio {
+          line-height: 1.25;
+          font-size: 1.2vw;
+      }
+  }
 
   .bio :global(p:first-child) {
       margin-block-start: 0;
@@ -169,4 +181,11 @@
 		color: var(--color-text-muted);
 		font-size: 0.8125rem;
 	}
+
+  h2 {
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-block-end: 0.75rem;
+  }
 </style>

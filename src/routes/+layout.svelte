@@ -131,6 +131,21 @@ li {
 		margin-block: 0;
 		margin-inline-end: 0;
     margin-inline-start: auto;
+		gap: 1rem;
+}
+
+@media screen and (min-width:  37.5rem) {
+		.menu-list {
+				grid-template-columns: repeat(3, 10rem);
+				justify-content: end;
+				margin-inline: 2rem;
+    }
+}
+
+.menu-list-item {
+		border: 2px solid white;
+    padding-inline: 1rem;
+    padding-block: 1rem;
 }
 
 /* Nav link hover underline animation */
@@ -141,7 +156,7 @@ li {
 	background-size: 0% 1px;
 	background-position: left bottom;
 	background-repeat: no-repeat;
-	transition: background-size 0.3s ease;
+	transition: background-size var(--hover-duration) ease;
 	padding-bottom: 2px;
 }
 
@@ -154,7 +169,7 @@ li {
 .site-title {
 	text-decoration: none;
 	color: inherit;
-	transition: opacity 0.2s ease;
+	transition: opacity var(--hover-duration-fast) ease;
 }
 
 .site-title:hover {
@@ -171,7 +186,7 @@ li {
 	text-decoration: none;
 	color: inherit;
 	opacity: 0.5;
-	transition: opacity 0.2s ease;
+	transition: opacity var(--hover-duration-fast) ease;
 }
 
 .lang-link:hover,
@@ -189,7 +204,7 @@ li {
 	display: grid;
 	place-items: center;
 	color: inherit;
-	transition: border-color 0.2s ease;
+	transition: border-color var(--hover-duration-fast) ease;
 }
 
 .theme-toggle:hover,

@@ -4,13 +4,15 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+	/* Keep in sync with --page-fade-duration in animations.css */
+	const fade_base: number = 300;
 </script>
 
 <svelte:head>
 	<title>{data.project.t.title}</title>
 </svelte:head>
 
-<article class="project" in:fade={{ duration: prefersReducedMotion.current ? 0 : 300 }}>
+<article class="project" in:fade={{ duration: prefersReducedMotion.current ? 0 : fade_base }}>
 	<header class="project-header">
 		<h1>{data.project.t.title}</h1>
 		{#if data.project.t.tagline}
@@ -29,7 +31,7 @@
 		{#each data.images as image, i (image.id)}
 			<figure
 				class="scroll-reveal"
-				style="--reveal-delay: {i * 60}ms; {i === 0 ? `view-transition-name: project-${data.project.slug}` : ''}"
+				style="--reveal-delay: calc({i} * var(--stagger-images)); {i === 0 ? `view-transition-name: project-${data.project.slug}` : ''}"
 			>
 				{#if image.url}
 					<img

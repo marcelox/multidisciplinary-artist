@@ -1,10 +1,45 @@
 /* ============================================
+   Animation timing tokens
+   Tune all animation durations from here.
+   ============================================ */
+
+:root {
+	/* View transitions (page navigation) */
+	--view-transition-duration: 400ms;
+
+	/* Page-enter fade (Svelte transitions — keep JS constants in sync) */
+	--page-fade-duration: 400ms;
+	--page-fade-duration-short: 300ms;
+
+	/* Scroll-reveal */
+	--reveal-distance: 20px;
+
+	/* Stagger base delays (multiplied by item index) */
+	--stagger-grid: 200ms;
+	--stagger-images: 300ms;
+	--stagger-list: 30ms;
+
+	/* Hover / micro-interactions */
+	--hover-duration: 300ms;
+	--hover-duration-fast: 200ms;
+	--zoom-duration: 400ms;
+
+	/* Exhibition fly-in (Svelte transition — keep JS constant in sync) */
+	--fly-duration: 400ms;
+	--fly-distance: 20px;
+
+	/* Theme color-scheme switch */
+	--theme-transition: 200ms;
+}
+
+/* ============================================
    Scroll-driven reveal animation
    ============================================ */
+
 @keyframes scroll-reveal {
 	from {
 		opacity: 0;
-		transform: translateY(20px);
+		transform: translateY(var(--reveal-distance));
 	}
 	to {
 		opacity: 1;
@@ -34,18 +69,18 @@
    View Transition customization
    ============================================ */
 ::view-transition-old(root) {
-	animation-duration: 200ms;
+	animation-duration: var(--view-transition-duration);
 	animation-timing-function: ease-out;
 }
 
 ::view-transition-new(root) {
-	animation-duration: 200ms;
+	animation-duration: var(--view-transition-duration);
 	animation-timing-function: ease-in;
 }
 
 ::view-transition-old(project-hero),
 ::view-transition-new(project-hero) {
-	animation-duration: 300ms;
+	animation-duration: var(--view-transition-duration);
 	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 

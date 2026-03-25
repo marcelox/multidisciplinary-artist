@@ -14,7 +14,7 @@
 		<a
 			class="project-card scroll-reveal"
 			href={localizeHref(`/projects/${project.slug}`)}
-			style="--reveal-delay: {i * 80}ms; view-transition-name: project-{project.slug}"
+			style="--reveal-delay: calc({i} * var(--stagger-grid)); view-transition-name: project-{project.slug}"
 		>
 			{#if project.cover_url}
 				<div class="card-image-wrapper">
@@ -44,7 +44,7 @@
 		text-decoration: none;
 		color: inherit;
 		overflow: hidden;
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		transition: transform var(--hover-duration) ease, box-shadow var(--hover-duration) ease;
 			padding-block-end: 1.5rem;
 	}
 
@@ -63,7 +63,7 @@
 		display: block;
 		aspect-ratio: 4 / 3;
 		object-fit: cover;
-		transition: transform 0.4s ease;
+		transition: transform var(--zoom-duration) ease;
 	}
 
 	.project-card:hover img {
@@ -75,7 +75,7 @@
 		font-size: 1rem;
 		font-weight: 400;
 		letter-spacing: 0.02em;
-		transition: opacity 0.2s ease;
+		transition: opacity var(--hover-duration-fast) ease;
 			padding-inline: 1.5rem;
 	}
 
