@@ -3,6 +3,7 @@
 	import { onNavigate } from '$app/navigation';
 	import { locales, localizeHref, deLocalizeHref } from '$lib/paraglide/runtime';
 	import favicon from '$lib/assets/favicon.svg';
+	import Menubar from '$lib/components/Menubar.svelte';
 	import type { LayoutProps } from './$types';
 	import '../styles/fonts.css';
 	import '../styles/animations.css';
@@ -62,17 +63,7 @@
 <header>
 	<nav aria-label="Main navigation">
 		<a class="site-title" href={localizeHref('/')}>{data.settings.t?.title ?? 'Home'}</a>
-		<ul class="menu-list">
-			{#each data.navigation as item (item.id)}
-				<li class="menu-list-item">
-					{#if item.external}
-						<a class="nav-link" href={item.path} rel="noopener noreferrer" target="_blank">{item.t.label}</a>
-					{:else}
-						<a class="nav-link" href={localizeHref(item.path)}>{item.t.label}</a>
-					{/if}
-				</li>
-			{/each}
-		</ul>
+		<Menubar items={data.navigation} />
 	</nav>
 	<nav aria-label="Language switcher">
 		<ul class="lang-list">
@@ -115,56 +106,6 @@
 	font-family: 'Outfit Variable', system-ui, sans-serif;
 }
 
-ul {
-		margin-block: 0;
-    margin-inline-start: 0;
-		margin-inline-end: 0;
-    padding-inline: 1rem;
-}
-
-li {
-		list-style: none;
-}
-
-.menu-list {
-    display: grid;
-		margin-block: 0;
-		margin-inline-end: 0;
-    margin-inline-start: auto;
-		gap: 1rem;
-}
-
-@media screen and (min-width:  37.5rem) {
-		.menu-list {
-				grid-template-columns: repeat(3, 10rem);
-				justify-content: end;
-				margin-inline: 2rem;
-    }
-}
-
-.menu-list-item {
-		border: 2px solid white;
-    padding-inline: 1rem;
-    padding-block: 1rem;
-}
-
-/* Nav link hover underline animation */
-.nav-link {
-	text-decoration: none;
-	color: inherit;
-	background-image: linear-gradient(currentColor, currentColor);
-	background-size: 0% 1px;
-	background-position: left bottom;
-	background-repeat: no-repeat;
-	transition: background-size var(--hover-duration) ease;
-	padding-bottom: 2px;
-}
-
-.nav-link:hover,
-.nav-link:focus-visible {
-	background-size: 100% 1px;
-}
-
 /* Site title subtle hover */
 .site-title {
 	text-decoration: none;
@@ -180,6 +121,9 @@ li {
 .lang-list {
 	display: flex;
 	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .lang-link {
