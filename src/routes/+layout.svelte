@@ -14,6 +14,7 @@
 
 	let theme = $state<'light' | 'dark' | null>(null);
 	let system_theme = $state<'light' | 'dark'>('light');
+	let menu_open = $state(false);
 
 	function get_effective_theme(): 'light' | 'dark' {
 		return theme ?? system_theme;
@@ -60,50 +61,74 @@
 	{/if}
 </svelte:head>
 
-<header>
-	<nav aria-label="Main navigation">
-		<a class="site-title" href={localizeHref('/')}>{data.settings.t?.title ?? 'Home'}</a>
-		<Menubar items={data.navigation} />
-	</nav>
-	<nav aria-label="Language switcher">
-		<ul class="lang-list">
-			{#each locales as locale (locale)}
-				<li>
-					<a class="lang-link" href={localizeHref(deLocalizeHref(page.url.pathname), { locale })} data-sveltekit-reload>{locale}</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
-	<button
-		class="theme-toggle"
-		onclick={toggle_theme}
-		aria-label={browser ? (get_effective_theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode') : 'Toggle color scheme'}
-		title={browser ? (get_effective_theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode') : 'Toggle color scheme'}
-	>
-		<svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-			<circle cx="12" cy="12" r="5"/>
-			<line x1="12" y1="1" x2="12" y2="3"/>
-			<line x1="12" y1="21" x2="12" y2="23"/>
-			<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-			<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-			<line x1="1" y1="12" x2="3" y2="12"/>
-			<line x1="21" y1="12" x2="23" y2="12"/>
-			<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-			<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-		</svg>
-		<svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-			<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-		</svg>
-	</button>
+<header class="site-header">
+	<a class="site-title" href={localizeHref('/')}>{data.settings.t?.title ?? 'Home'}</a>
+	<div class="header-controls">
+		<nav aria-label="Language switcher">
+			<ul class="lang-list">
+				{#each locales as locale (locale)}
+					<li>
+						<a class="lang-link" href={localizeHref(deLocalizeHref(page.url.pathname), { locale })} data-sveltekit-reload>{locale}</a>
+					</li>
+				{/each}
+			</ul>
+		</nav>
+		<button
+			class="theme-toggle"
+			onclick={toggle_theme}
+			aria-label={browser ? (get_effective_theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode') : 'Toggle color scheme'}
+			title={browser ? (get_effective_theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode') : 'Toggle color scheme'}
+		>
+			<svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<circle cx="12" cy="12" r="5"/>
+				<line x1="12" y1="1" x2="12" y2="3"/>
+				<line x1="12" y1="21" x2="12" y2="23"/>
+				<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+				<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+				<line x1="1" y1="12" x2="3" y2="12"/>
+				<line x1="21" y1="12" x2="23" y2="12"/>
+				<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+				<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+			</svg>
+			<svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+			</svg>
+		</button>
+		<Menubar items={data.navigation} bind:is_open={menu_open} />
+	</div>
 </header>
 
-<main>
+<main inert={menu_open || undefined}>
 	{@render children()}
 </main>
 
 <style>
 :global(body) {
 	font-family: 'Outfit Variable', system-ui, sans-serif;
+}
+
+/* Header */
+.site-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 50;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.5rem 2rem;
+	background: var(--color-bg);
+}
+
+.header-controls {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+}
+
+main {
+	padding-top: 5rem;
 }
 
 /* Site title subtle hover */
