@@ -6,98 +6,127 @@
 	let { data }: PageProps = $props();
 </script>
 
+<h1 class="visually-hidden">Projects</h1>
 
-<h1>Projects</h1>
-
-<section class="project-grid">
+<section class="project-stages">
 	{#each data.projects as project, i (project.id)}
 		<a
-			class="project-card scroll-reveal"
+			class="stage"
 			href={localizeHref(`/projects/${project.slug}`)}
-			style="--reveal-delay: calc({i} * var(--stagger-grid)); view-transition-name: project-{project.slug}"
+			style="view-transition-name: project-{project.slug}"
 		>
 			{#if project.cover_url}
-				<div class="card-image-wrapper">
-					<img
-						src={project.cover_url}
-						alt={project.t.title}
-						loading="lazy"
-						width="800"
-					/>
-				</div>
+				<img
+					src={project.cover_url}
+					alt={project.t.title}
+					loading={i === 0 ? 'eager' : 'lazy'}
+					width="1920"
+				/>
 			{/if}
-			<h2>{project.t.title}</h2>
+			<div class="stage-overlay">
+				<h2>{project.t.title}</h2>
+				{#if project.t.tagline}
+					<p class="tagline">{project.t.tagline}</p>
+				{/if}
+			</div>
 		</a>
 	{/each}
 </section>
 
 <style>
-	.project-grid {
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	:global(html:has(.project-stages)) {
+		scroll-snap-type: y mandatory;
+	}
+
+	.project-stages {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: 1.5rem;
-		padding: 2rem 1rem;
+		grid-auto-rows: 100svh;
+		margin-top: -5rem; /* bleed behind fixed header */
 	}
 
-	.project-card {
-		display: block;
+	.stage {
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+		display: grid;
+		grid-template: 1fr 1fr / 1fr 1fr;
+		overflow: hidden;
 		text-decoration: none;
-		color: inherit;
-		overflow: hidden;
-		transition: transform var(--hover-duration) ease, box-shadow var(--hover-duration) ease;
-			padding-block-end: 1.5rem;
+		color: #fff;
 	}
 
-	.project-card:hover {
-		transform: scale(1.02);
-		box-shadow: 0 8px 30px var(--color-shadow);
-	}
-
-	.card-image-wrapper {
-		overflow: hidden;
-	}
-
-	.project-card img {
+	.stage img {
+		grid-row: 1/-1;
+		grid-column: 1/-1;
 		width: 100%;
-		height: auto;
-		display: block;
-		aspect-ratio: 4 / 3;
+		height: 100%;
 		object-fit: cover;
+		display: block;
 		transition: transform var(--zoom-duration) ease;
 	}
 
-	.project-card:hover img {
-		transform: scale(1.05);
+	.stage:hover img,
+	.stage:focus-visible img {
+		transform: scale(1.03);
 	}
 
-	.project-card h2 {
-		margin: 0.75rem 0 0;
-		font-size: 1rem;
+	.stage-overlay {
+		grid-column: 1/-1;
+		grid-row: 2/-1;
+		align-self: end;
+		padding: 3rem 2rem;
+		background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.55) 100%);
+		z-index: 1;
+	}
+
+	.stage-overlay h2 {
+		margin: 0;
+		font-size: clamp(1.5rem, 4vw, 3rem);
 		font-weight: 400;
 		letter-spacing: 0.02em;
-		transition: opacity var(--hover-duration-fast) ease;
-			padding-inline: 1.5rem;
 	}
 
-	.project-card:hover h2 {
-		text-decoration: underline;
+	.stage-overlay .tagline {
+		margin: 0.5rem 0 0;
+		font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+		opacity: 0.85;
+	}
+
+	.stage:focus-visible {
+		outline: 3px solid #fff;
+		outline-offset: -3px;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.project-card {
+		:global(html:has(.project-stages)) {
+			scroll-snap-type: none;
+		}
+
+		.project-stages {
+			grid-auto-rows: auto;
+		}
+
+		.stage {
+			min-height: 60vh;
+		}
+
+		.stage img {
 			transition: none;
 		}
 
-		.project-card:hover {
-			transform: none;
-			box-shadow: none;
-		}
-
-		.project-card img {
-			transition: none;
-		}
-
-		.project-card:hover img {
+		.stage:hover img,
+		.stage:focus-visible img {
 			transform: none;
 		}
 	}

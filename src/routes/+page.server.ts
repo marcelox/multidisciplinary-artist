@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ depends }) => {
 		return {
 			...translated,
 			cover_url: get_asset_url(translated.cover_image, {
-				width: 800,
+				width: 1920,
 				format: 'webp',
 				quality: 80
 			})
