@@ -109,10 +109,8 @@
 
 /* Header */
 .site-header {
-	position: fixed;
+	position: sticky;
 	top: 0;
-	left: 0;
-	right: 0;
 	z-index: 50;
 	display: flex;
 	align-items: center;
@@ -125,10 +123,6 @@
 	display: flex;
 	align-items: center;
 	gap: 1.25rem;
-}
-
-main {
-	padding-top: 5rem;
 }
 
 /* Site title subtle hover */
