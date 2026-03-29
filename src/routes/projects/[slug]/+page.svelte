@@ -57,14 +57,20 @@
 </article>
 
 <style>
+	:global(html:has(.project-images)) {
+		scroll-snap-type: y mandatory;
+	}
+
 	.project {
-		max-width: 56.25rem;
 		margin: 0 auto;
 		padding: 2rem 1rem;
 	}
 
 	.project-header {
 		margin-bottom: 2rem;
+		max-width: 56.25rem;
+		margin-inline: auto;
+		scroll-snap-align: start;
 	}
 
 	.project-header h1 {
@@ -86,30 +92,44 @@
 	}
 
 	.project-images {
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
+		display: grid;
+		grid-auto-rows: 100svh;
 	}
 
 	figure {
 		margin: 0;
+		position: relative;
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+		overflow: hidden;
 	}
 
 	figure img {
 		width: 100%;
-		height: auto;
+		height: 100%;
+		object-fit: contain;
 		display: block;
+		background: var(--color-bg);
 	}
 
 	figcaption {
-		margin-top: 0.5rem;
+		position: absolute;
+		right: 0;
+		bottom: 2rem;
+		max-width: 20ch;
+		padding: 0.75rem 1rem;
 		font-size: 0.8125rem;
 		color: var(--color-text-caption);
+		text-align: right;
+		background-color: var(--color-bg);
 	}
 
 	.statement {
 		margin-top: 3rem;
 		max-width: 65ch;
+		margin-inline: auto;
+		padding: 2rem 1rem;
+		scroll-snap-align: start;
 	}
 
 	.statement h2 {
@@ -121,5 +141,23 @@
 	.statement div {
 		line-height: 1.7;
 		font-size: 0.9375rem;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global(html:has(.project-images)) {
+			scroll-snap-type: none;
+		}
+
+		.project-images {
+			grid-auto-rows: auto;
+		}
+
+		figure {
+			min-height: auto;
+		}
+
+		figure img {
+			height: auto;
+		}
 	}
 </style>
