@@ -62,7 +62,7 @@
 </svelte:head>
 
 <header class="site-header">
-	<a class="site-title" href={localizeHref('/')}>{data.settings.t?.title ?? 'Home'}</a>
+	<a class="site-title" href={localizeHref('/')}>{data.settings.t?.title ?? 'Diana Juneck'}</a>
 	<div class="header-controls">
 		<nav aria-label="Language switcher">
 			<ul class="lang-list">

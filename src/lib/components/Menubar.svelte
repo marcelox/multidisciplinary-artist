@@ -53,7 +53,7 @@
 
 		if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 			const links = Array.from(
-				document.querySelectorAll<HTMLAnchorElement>('#menu-overlay .menu-link')
+				document.querySelectorAll<HTMLAnchorElement>('#menu-overlay .menu-link, #menu-overlay .menu-footer-link')
 			);
 			if (!links.length) return;
 
@@ -145,6 +145,13 @@
 			{/each}
 		</ul>
 	</nav>
+	<div class="menu-footer">
+		<a
+			class="menu-footer-link"
+			href={localizeHref('/impressum')}
+			aria-current={is_current_page('/impressum') ? 'page' : undefined}
+		>Impressum</a>
+	</div>
 </div>
 
 <style>
@@ -305,6 +312,52 @@
 		font-weight: 400;
 	}
 
+	/* ─── Footer (secondary links) ─── */
+	.menu-footer {
+		margin-block-start: 2rem;
+		padding-block-start: 1rem;
+		border-top: 1px solid var(--color-border);
+		opacity: 0;
+		transform: translateY(10px);
+		transition:
+			opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+			transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+		transition-delay: calc(var(--i, 4) * 80ms + 400ms);
+	}
+
+	.menu-overlay.is-open .menu-footer {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.menu-overlay:not(.is-open) .menu-footer {
+		transition-delay: 0ms;
+		transition-duration: 0.3s;
+	}
+
+	.menu-footer-link {
+		font-size: 0.875rem;
+		font-weight: 300;
+		text-decoration: none;
+		color: var(--color-text-secondary);
+		letter-spacing: 0.04em;
+		transition: color var(--hover-duration-fast) ease;
+	}
+
+	.menu-footer-link:hover,
+	.menu-footer-link:focus-visible {
+		color: var(--color-text);
+	}
+
+	.menu-footer-link:focus-visible {
+		outline: 2px solid var(--color-text);
+		outline-offset: 4px;
+	}
+
+	.menu-footer-link[aria-current='page'] {
+		color: var(--color-text);
+	}
+
 	/* ─── Reduced motion ─── */
 	@media (prefers-reduced-motion: reduce) {
 		.trigger-line {
@@ -325,6 +378,16 @@
 		}
 
 		.menu-index {
+			transition: none;
+		}
+
+		.menu-footer {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+
+		.menu-footer-link {
 			transition: none;
 		}
 	}
