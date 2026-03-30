@@ -13,7 +13,7 @@
 
 	<section class="intro scroll-reveal">
 		<p>
-			For inquiries about prints, exhibitions, collaborations, or licensing, please get in touch.
+			For inquiries about prints, exhibitions, collaborations, workshops, or licensing, please get in touch.
 		</p>
 	</section>
 
@@ -74,10 +74,10 @@
 		</ul>
 	</section>
 
-	<section class="location scroll-reveal">
-		<h2>Based in</h2>
-		<p>Berlin, Germany</p>
-	</section>
+<!--	<section class="location scroll-reveal">-->
+<!--		<h2>Based in</h2>-->
+<!--		<p>Berlin, Germany</p>-->
+<!--	</section>-->
 </article>
 
 <style>
