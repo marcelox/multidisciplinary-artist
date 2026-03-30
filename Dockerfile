@@ -3,6 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+ARG DIRECTUS_URL
+ENV DIRECTUS_URL=$DIRECTUS_URL
 RUN npm run build
 
 FROM node:22-alpine
