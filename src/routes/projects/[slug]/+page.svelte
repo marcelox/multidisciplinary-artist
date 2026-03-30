@@ -57,9 +57,7 @@
 </article>
 
 <style>
-	:global(html:has(.project-images)) {
-		scroll-snap-type: y mandatory;
-	}
+	/* no scroll-snap on project page — header must remain freely accessible */
 
 	.project {
 		margin: 0 auto;
@@ -70,7 +68,6 @@
 		margin-bottom: 2rem;
 		max-width: 56.25rem;
 		margin-inline: auto;
-		scroll-snap-align: start;
 	}
 
 	.project-header h1 {
@@ -99,8 +96,6 @@
 	figure {
 		margin: 0;
 		position: relative;
-		scroll-snap-align: start;
-		scroll-snap-stop: always;
 		overflow: hidden;
 	}
 
@@ -131,7 +126,6 @@
 		max-width: 65ch;
 		margin-inline: auto;
 		padding: 2rem 1rem;
-		scroll-snap-align: start;
 	}
 
 	.statement h2 {
@@ -146,10 +140,6 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		:global(html:has(.project-images)) {
-			scroll-snap-type: none;
-		}
-
 		.project-images {
 			grid-auto-rows: auto;
 		}

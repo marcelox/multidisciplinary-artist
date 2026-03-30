@@ -69,13 +69,21 @@
    View Transition customization
    ============================================ */
 ::view-transition-old(root) {
-	animation-duration: var(--view-transition-duration);
-	animation-timing-function: ease-out;
+	animation: calc(var(--view-transition-duration) / 2) ease-out both fade-out;
 }
 
 ::view-transition-new(root) {
-	animation-duration: var(--view-transition-duration);
-	animation-timing-function: ease-in;
+	animation: calc(var(--view-transition-duration) / 2) ease-in calc(var(--view-transition-duration) / 2) both fade-in;
+}
+
+@keyframes fade-out {
+	from { opacity: 1; }
+	to   { opacity: 0; }
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
+	to   { opacity: 1; }
 }
 
 ::view-transition-old(project-hero),

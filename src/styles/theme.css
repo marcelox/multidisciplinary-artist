@@ -2,7 +2,7 @@
    Theme: light-dark color scheme
    ============================================ */
 :root {
-	color-scheme: light dark;
+	color-scheme: dark light;
 
 	--color-text: light-dark(#111, #e8e8e8);
 	--color-text-secondary: light-dark(#555, #aaa);

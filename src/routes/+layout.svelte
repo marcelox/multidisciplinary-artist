@@ -13,7 +13,7 @@
 	let { data, children }: LayoutProps = $props();
 
 	let theme = $state<'light' | 'dark' | null>(null);
-	let system_theme = $state<'light' | 'dark'>('light');
+	let system_theme = $state<'light' | 'dark'>('dark');
 	let menu_open = $state(false);
 
 	function get_effective_theme(): 'light' | 'dark' {
@@ -39,16 +39,24 @@
 		if (stored === 'light' || stored === 'dark') {
 			theme = stored;
 			document.documentElement.setAttribute('data-theme', stored);
+		} else {
+			theme = 'dark';
 		}
 	}
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
 
+		document.documentElement.style.scrollSnapType = 'none';
+
 		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
+			const transition = document.startViewTransition(async () => {
 				resolve();
 				await navigation.complete;
+			});
+
+			transition.finished.then(() => {
+				document.documentElement.style.scrollSnapType = '';
 			});
 		});
 	});
