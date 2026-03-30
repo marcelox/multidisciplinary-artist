@@ -316,7 +316,7 @@
 	.menu-footer {
 		margin-block-start: 2rem;
 		padding-block-start: 1rem;
-		border-top: 1px solid var(--color-border);
+		/*border-top: 1px solid var(--color-border);*/
 		opacity: 0;
 		transform: translateY(10px);
 		transition:

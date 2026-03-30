@@ -62,7 +62,7 @@
 </svelte:head>
 
 <header class="site-header">
-	<a class="site-title" href={localizeHref('/')}>{data.settings.t?.title ?? 'Diana Juneck'}</a>
+	<a class="site-title" href={localizeHref('/')}>Diana<span class="last-name">Juneck</span></a>
 	<div class="header-controls">
 		<nav aria-label="Language switcher">
 			<ul class="lang-list">
@@ -120,7 +120,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 1.5rem 2rem;
+	padding: 1.5rem 1.5rem;
 	background: var(--color-bg);
 }
 
@@ -134,10 +134,14 @@
 .site-title {
 	text-decoration: none;
 	text-transform: uppercase;
-	font-weight: 600;
+	font-weight: 200;
 	color: inherit;
 	transition: opacity var(--hover-duration-fast) ease;
 	border-radius: 2px;
+}
+
+.site-title .last-name {
+    font-weight: 700;
 }
 
 .site-title:hover {
