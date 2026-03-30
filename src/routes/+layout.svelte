@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { onNavigate } from '$app/navigation';
-	import { locales, localizeHref, deLocalizeHref } from '$lib/paraglide/runtime';
+	import { locales, localizeHref, deLocalizeHref, getLocale } from '$lib/paraglide/runtime';
 	import favicon from '$lib/assets/favicon.svg';
 	import Menubar from '$lib/components/Menubar.svelte';
 	import type { LayoutProps } from './$types';
@@ -68,7 +68,12 @@
 			<ul class="lang-list">
 				{#each locales as locale (locale)}
 					<li>
-						<a class="lang-link" href={localizeHref(deLocalizeHref(page.url.pathname), { locale })} data-sveltekit-reload>{locale}</a>
+						<a
+						class="lang-link"
+						href={localizeHref(deLocalizeHref(page.url.pathname), { locale })}
+						data-sveltekit-reload
+						aria-current={locale === getLocale() ? 'true' : undefined}
+					>{locale}</a>
 					</li>
 				{/each}
 			</ul>
@@ -128,19 +133,28 @@
 /* Site title subtle hover */
 .site-title {
 	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 600;
 	color: inherit;
 	transition: opacity var(--hover-duration-fast) ease;
+	border-radius: 2px;
 }
 
 .site-title:hover {
 	opacity: 0.7;
 }
 
+.site-title:focus-visible {
+	outline: 2px solid var(--color-text);
+	outline-offset: 2px;
+}
+
 /* Language switcher */
 .lang-list {
+	margin-inline-start: 1rem;
+	margin-block: 0;
 	display: flex;
 	gap: 0.5rem;
-	margin: 0;
 	padding: 0;
 	list-style: none;
 }
@@ -148,13 +162,26 @@
 .lang-link {
 	text-decoration: none;
 	color: inherit;
-	opacity: 0.5;
-	transition: opacity var(--hover-duration-fast) ease;
+	opacity: 0.4;
+	padding-bottom: 2px;
+	border-bottom: 1.5px solid transparent;
+	transition: opacity var(--hover-duration-fast) ease, border-color var(--hover-duration-fast) ease;
+	border-radius: 2px;
 }
 
 .lang-link:hover,
 .lang-link:focus-visible {
 	opacity: 1;
+}
+
+.lang-link:focus-visible {
+	outline: 2px solid var(--color-text);
+	outline-offset: 2px;
+}
+
+.lang-link[aria-current="true"] {
+	opacity: 1;
+	border-bottom-color: var(--color-text);
 }
 
 /* Theme toggle button */

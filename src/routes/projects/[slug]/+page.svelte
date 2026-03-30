@@ -113,6 +113,8 @@
 	}
 
 	figcaption {
+		/* todo */
+		display: none;
 		position: absolute;
 		right: 0;
 		bottom: 2rem;

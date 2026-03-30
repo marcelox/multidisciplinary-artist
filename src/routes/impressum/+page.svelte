@@ -23,7 +23,7 @@
 	<section class="scroll-reveal">
 		<h2>Kontakt</h2>
 		<p>
-			E-Mail: <a href="mailto:info@dianajuneck.com">info@dianajuneck.com</a>
+			E-Mail: <a href="mailto:info@diana-juneck.de">info@diana-juneck.de</a>
 		</p>
 	</section>
 
